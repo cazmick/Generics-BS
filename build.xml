@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="AndroidAutomationGenericFunctions">
+    <property environment="env"/>
+    <property name="AndroidAutomationNaukriIndia.location" value="../AndroidAutomationNaukriIndia"/>
+    <property name="ECLIPSE_HOME" value="D:/eclipse-luna/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="AndroidAutomationGenericFunctions.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="../jars/android-junit-report-1.5.8.jar"/>
+        <pathelement location="../jars/android-maven-plugin-3.8.0.jar"/>
+        <pathelement location="../jars/commons-logging-1.1.jar"/>
+        <pathelement location="../jars/dom4j-1.6.1.jar"/>
+        <pathelement location="../jars/java-client-3.2.0.jar"/>
+        <pathelement location="../jars/jsch-0.1.49.jar"/>
+        <pathelement location="../jars/jxl.jar"/>
+        <pathelement location="../jars/log4j-1.2.13.jar"/>
+        <pathelement location="../jars/mysql-connector-java-5.1.22-bin.jar"/>
+        <pathelement location="../jars/poi-3.8-beta5-20111217.jar"/>
+        <pathelement location="../jars/poi-examples-3.8-beta5-20111217.jar"/>
+        <pathelement location="../jars/poi-excelant-3.8-beta5-20111217.jar"/>
+        <pathelement location="../jars/poi-ooxml-3.8-beta5-20111217.jar"/>
+        <pathelement location="../jars/poi-ooxml-schemas-3.8-beta5-20111217.jar"/>
+        <pathelement location="../jars/poi-scratchpad-3.8-beta5-20111217.jar"/>
+        <pathelement location="../jars/polidea_test_runner_1.1.jar"/>
+        <pathelement location="../jars/selenium-android-driver-2.21.0.jar"/>
+        <pathelement location="../jars/selenium-server-standalone-2.47.1.jar"/>
+        <pathelement location="../jars/testng-5.5.jar"/>
+        <pathelement location="../jars/uiautomator.jar"/>
+        <pathelement location="../jars/xmlbeans-2.3.0.jar"/>
+        <pathelement location="../jars/selenium-java-2.44.0.jar"/>
+        <pathelement location="../jars/java-json.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="AndroidAutomationGenericFunctions.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="build.xml" dir="${AndroidAutomationNaukriIndia.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${AndroidAutomationNaukriIndia.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+</project>
